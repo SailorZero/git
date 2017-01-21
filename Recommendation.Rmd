@@ -31,12 +31,15 @@ ffffffff
 
 Рассмотрим, например, похожесть первых 10 пользователей
 
+
 ```{r}
 similarity_users10 <- similarity(MovieLense[1:10, ], method = "cosine", which = "users")
 as.matrix(similarity_users10)
 ```
 
 Или в виде графика (уже рассмотренной ранее heatmap)
+
+чем темнее, тем больше похожы
 
 ```{r}
 image(as.matrix(similarity_users10), main = "User similarity")
@@ -93,7 +96,7 @@ recc_data_test <- ratings_movies[test_ind, ]
 ```
 
 Возможны разные методы построения модели. Рассмотрим метод IBCF ("Recommender based on item-based collaborative filtering (real
-data).")
+data - ).")
 
 Параметры этого метода по умолчанию
 ```{r}
@@ -103,6 +106,7 @@ recommender_models$IBCF_realRatingMatrix$parameters
 ```
 
 Построим рекомендательную модель
+
 ```{r}
 recc_model <- Recommender(data = recc_data_train, method = "IBCF",
 parameter = list(k = 30))
@@ -124,7 +128,7 @@ model_details$sim[1:5, 1:5]
 * затем фильмы упорядочиваются согласно весам, где вес каждой рекомендации (фильма) вычисляется на основе оценок пользователя и показателей схожести фильмов (взвешенная сумма)
 
 ```{r}
-recc_predicted <- predict(object = recc_model, newdata = recc_data_test, n = 6)
+recc_predicted <- predict(object = recc_model, newdata = recc_data_test, n = 6) # n - число фильмоыв к  рекомендации
 recc_predicted
 ```
 
